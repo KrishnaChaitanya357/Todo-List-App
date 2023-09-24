@@ -1,23 +1,28 @@
-import logo from './logo.svg';
 import './App.css';
+import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
+import TaskListPage from './Components/TaskListPage';
+import TaskDetailsPage from './Components/TaskDetailsPage';
+import { useEffect } from 'react';
+
+
 
 function App() {
+  const navigate =useNavigate()
+    const location =useLocation()
+  useEffect(()=>{
+    const currentpath =location.pathname;
+    if(currentpath==="/")
+    {
+        navigate("/tasks")
+    }
+  })
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Routes>
+        <Route path="/tasks" element={<TaskListPage />} />
+        <Route path="/tasks/:taskId" element={<TaskDetailsPage/>} />
+       
+      </Routes>
     </div>
   );
 }
